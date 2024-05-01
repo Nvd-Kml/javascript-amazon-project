@@ -1,4 +1,4 @@
-import { cart } from '../data/cart.js';
+import { cart, removeFromCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -10,87 +10,99 @@ const getProduct = (cartItem) => {
     }
 }
 
+
 let cartSummaryHtml = ``;
 
 cart.forEach((cartItem) => {
 
     const product = getProduct(cartItem);
 
-    cartSummaryHtml += `<div class="cart-item-container">
+    cartSummaryHtml += `<div class="cart-item-container js-cart-item-container-${product.id}">
     <div class="delivery-date">
-      Delivery date: Tuesday, June 21
+        Delivery date: Tuesday, June 21
     </div>
 
     <div class="cart-item-details-grid">
-      <img class="product-image"
+        <img class="product-image"
         src="${product.image}">
 
-      <div class="cart-item-details">
+        <div class="cart-item-details">
         <div class="product-name">
-          ${product.name}
+            ${product.name}
         </div>
         <div class="product-price">
         ${formatCurrency(product.priceCents)}
         </div>
         <div class="product-quantity">
-          <span>
+            <span>
             Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-          </span>
-          <span class="update-quantity-link link-primary">
+            </span>
+            <span class="update-quantity-link link-primary">
             Update
-          </span>
-          <span class="delete-quantity-link link-primary">
+            </span>
+            <span class="delete-quantity-link link-primary js-delete-link"
+            data-product-id="${product.id}">
             Delete
-          </span>
+            </span>
         </div>
-      </div>
+        </div>
 
-      <div class="delivery-options">
+        <div class="delivery-options">
         <div class="delivery-options-title">
-          Choose a delivery option:
+            Choose a delivery option:
         </div>
         <div class="delivery-option">
-          <input type="radio" checked
+            <input type="radio" checked
             class="delivery-option-input"
             name="delivery-option-${product.id}">
-          <div>
+            <div>
             <div class="delivery-option-date">
-              Tuesday, June 21
+                Tuesday, June 21
             </div>
             <div class="delivery-option-price">
-              FREE Shipping
+                FREE Shipping
             </div>
-          </div>
+            </div>
         </div>
         <div class="delivery-option">
-          <input type="radio"
+            <input type="radio"
             class="delivery-option-input"
             name="delivery-option-${product.id}">
-          <div>
+            <div>
             <div class="delivery-option-date">
-              Wednesday, June 15
+                Wednesday, June 15
             </div>
             <div class="delivery-option-price">
-              $4.99 - Shipping
+                $4.99 - Shipping
             </div>
-          </div>
+            </div>
         </div>
         <div class="delivery-option">
-          <input type="radio"
+            <input type="radio"
             class="delivery-option-input"
             name="delivery-option-${product.id}">
-          <div>
+            <div>
             <div class="delivery-option-date">
-              Monday, June 13
+                Monday, June 13
             </div>
             <div class="delivery-option-price">
-              $9.99 - Shipping
+                $9.99 - Shipping
             </div>
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>`
+    </div>`
 });
 
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
+
+document.querySelectorAll('.js-delete-link').forEach((deleteLink) => {
+    deleteLink.addEventListener('click', () => {
+        const productId = deleteLink.dataset.productId;
+        removeFromCart(productId);
+        document.querySelector(
+            `.js-cart-item-container-${productId}`
+        ).remove();
+    });
+});
