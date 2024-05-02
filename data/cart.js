@@ -45,3 +45,11 @@ export function addToCart(productId) {
     cart = cart.filter((cartItem) => productId !== cartItem.productId);
     saveToStorage();
   }
+
+  export function updateDeliveryOptionFromCart(productId, deliveryOptionId) {
+    cart.forEach((cartItem) => {
+      if (productId === cartItem.productId) {
+        cartItem.deliveryOptionId = deliveryOptionId;
+      }
+    });
+  }

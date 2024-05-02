@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from '../data/cart.js';
+import { cart, removeFromCart, updateDeliveryOptionFromCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
@@ -120,6 +120,10 @@ document.querySelectorAll('.js-delivery-option').forEach((delivery) => {
         const curDeliveryOption = delivery.dataset.deliveryOption;
         const productId = delivery.dataset.productId;
 
+        // update delivery option in cart
+        updateDeliveryOptionFromCart(productId, curDeliveryOption);
+
+        // update the UI to display selected delivery date
         const deliveryDateContainer = document.querySelector(`.js-delivery-date-${productId}`);
         let deliveryDate;
 
@@ -134,5 +138,7 @@ document.querySelectorAll('.js-delivery-option').forEach((delivery) => {
         }
 
         deliveryDateContainer.innerText = `Delivery date: ${deliveryDate}`;
+
+        console.log(cart);
     });
 });
