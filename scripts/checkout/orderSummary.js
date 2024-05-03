@@ -16,7 +16,7 @@ export function renderOrderSummary() {
         const deliveryOptionDate = getDeliveryDate(deliveryOption.deliveryDays);
 
         cartSummaryHtml += `
-        <div class="cart-item-container js-cart-item-container-${product.id}">
+        <div class="cart-item-container js-cart-item-container js-cart-item-container-${product.id}">
             <div class="delivery-date js-delivery-date-${product.id}">
                 Delivery date: ${deliveryOptionDate}
             </div>
@@ -32,7 +32,7 @@ export function renderOrderSummary() {
                     <div class="product-price">
                         ${formatCurrency(product.priceCents)}
                     </div>
-                    <div class="product-quantity">
+                    <div class="product-quantity js-product-quantity-${product.id}">
                         <span>
                             Quantity: <span class="quantity-label js-quantity-${product.id}">${cartItem.quantity}</span>
                         </span>
@@ -100,8 +100,10 @@ export function renderOrderSummary() {
         return today.add(days, 'day').format('dddd, MMMM D');
     } 
 
+    // display the cart summary
     document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
 
+    // update the quantity of item in the cart
     document.querySelectorAll('.js-update-link').forEach((updateLink) => {
         updateLink.addEventListener('click', () => {
             const productId = updateLink.dataset.productId;
@@ -115,6 +117,7 @@ export function renderOrderSummary() {
         });
     });
 
+    // save the quantity selected to cart
     document.querySelectorAll('.js-save-link').forEach((updateLink) => {
         updateLink.addEventListener('click', () => {
             const productId = updateLink.dataset.productId;
@@ -143,6 +146,7 @@ export function renderOrderSummary() {
         });
     });
 
+    // delete an item from the cart
     document.querySelectorAll('.js-delete-link').forEach((deleteLink) => {
         deleteLink.addEventListener('click', () => {
             const productId = deleteLink.dataset.productId;
@@ -153,6 +157,7 @@ export function renderOrderSummary() {
         });
     });
 
+    // delivery option selection
     document.querySelectorAll('.js-delivery-option').forEach((delivery) => {
         delivery.addEventListener('click', () => {
             const {productId, deliveryOptionId} = delivery.dataset;

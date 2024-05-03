@@ -1,20 +1,23 @@
-import { cart, addToCart, loadFromStorage, findItemFromCart } from "../../data/cart.js";
-
-let productId = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
-let notEmptyCart = [
-    {
-        productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        quantity: 2,
-        deliveryOptionId: '2' 
-    }
-];
-
-beforeEach(() => {
-    spyOn(localStorage, 'setItem');
-});
+import { addToCart, loadFromStorage, findItemFromCart } from "../../data/cart.js";
 
 describe('testSuite: addToCart', () => {
+
+    let productId = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
+
+    beforeEach(() => {
+        spyOn(localStorage, 'setItem');
+    });
+
     it('when product is in the cart', () => {
+
+        let notEmptyCart = [
+            {
+                productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+                quantity: 2,
+                deliveryOptionId: '2' 
+            }
+        ];
+
         spyOn(localStorage, 'getItem').and.callFake(() => {
             return JSON.stringify(notEmptyCart);
         });
