@@ -21,6 +21,9 @@ export function renderPaymentSummary() {
     let totalWithTaxCents = (totalBeforeTaxCents + taxCents);
     
     let paymentSummaryHtml= `
+          <div class="payment-summary-title">
+            Order Summary
+          </div>
           <div class="payment-summary-row">
             <div>Items (${getCartQuantity()}):</div>
             <div class="payment-summary-money">$${formatCurrency(totalItemPriceCents)}</div>
@@ -45,6 +48,10 @@ export function renderPaymentSummary() {
             <div>Order total:</div>
             <div class="payment-summary-money">$${formatCurrency(totalWithTaxCents)}</div>
           </div>
+          
+          <button class="place-order-button button-primary">
+            Place your order
+          </button>
     `;
 
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHtml;
