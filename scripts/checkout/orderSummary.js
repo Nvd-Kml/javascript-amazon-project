@@ -126,26 +126,30 @@ export function renderOrderSummary() {
                 return;
             }
 
-            if (curQuantity === 0)
-                document.querySelector(`.js-delete-link-${productId}`).click(); 
-
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             container.classList.remove('is-editing-quantity');
 
             const quantityLabel = document.querySelector(`.js-quantity-${productId}`);
             quantityLabel.innerText = curQuantity;
 
+            if (curQuantity === 0) {
+                document.querySelector(`.js-delete-link-${productId}`).click();
+                return;
+            }
+
             updateQuantityFromCart(productId, curQuantity);
+            renderPaymentSummary();
         });
     });
 
     document.querySelectorAll('.js-delete-link').forEach((deleteLink) => {
         deleteLink.addEventListener('click', () => {
             const productId = deleteLink.dataset.productId;
-            removeFromCart(productId);
             document.querySelector(
                 `.js-cart-item-container-${productId}`
             ).remove();
+            removeFromCart(productId);
+            renderPaymentSummary();
         });
     });
 
