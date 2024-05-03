@@ -1,6 +1,6 @@
-export function getProduct(cartItem) {
+export function getProduct(productId) {
   return products.find(
-    (product) => cartItem.productId == product.id
+    (product) => productId == product.id
   );
 }
 
