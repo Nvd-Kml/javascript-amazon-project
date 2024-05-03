@@ -131,7 +131,7 @@
 
 .is-editing-quantity .save-quantity-link,
 .is-editing-quantity .input-quantity {
-  display: inline-block;
+  display: initial;
 }
 
 .is-editing-quantity .quantity-label,
