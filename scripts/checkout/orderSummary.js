@@ -1,8 +1,9 @@
 import { cart, removeFromCart, updateDeliveryOptionFromCart, updateQuantityFromCart } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import { deliveryOptions } from '../../data/deliveryOptions.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';                                      
+import { renderPaymentSummary } from './paymentSummary.js';
 
 export function renderOrderSummary() {
 
@@ -103,14 +104,6 @@ export function renderOrderSummary() {
         return today.add(days, 'day').format('dddd, MMMM D');
     } 
 
-    function getProduct(cartItem) {
-        for (let product of products) {
-            if (product.id === cartItem.productId) {
-                return product;
-            }
-        }
-    }
-
     document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
 
     document.querySelectorAll('.js-update-link').forEach((updateLink) => {
@@ -167,6 +160,7 @@ export function renderOrderSummary() {
             // update delivery option in cart
             updateDeliveryOptionFromCart(productId, deliveryOptionId);
             renderOrderSummary();
+            renderPaymentSummary();
         });
     });
 }
