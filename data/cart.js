@@ -19,13 +19,13 @@ function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export function addToCart(productId) {
+export function addToCart(productId, selectedQuantity) {
     let itemFound = false;
   
     for (let cartItem of cart) {
       if (productId === cartItem.productId) {
         itemFound = true;
-        cartItem.quantity++;
+        cartItem.quantity += selectedQuantity;
         break;
       }
     }
@@ -33,7 +33,7 @@ export function addToCart(productId) {
     if (!itemFound) {
       cart.push({
         productId: productId,
-        quantity: 1,
+        quantity: selectedQuantity,
         deliveryOptionId: '1'
       });
     }
