@@ -46,6 +46,15 @@ export function addToCart(productId) {
     saveToStorage();
   }
 
+  export function updateQuantityFromCart(productId, quantity) {
+    cart.forEach((cartItem) => {
+      if (productId === cartItem.productId) {
+        cartItem.quantity = quantity;
+      }
+    });
+    saveToStorage();
+  }
+
   export function updateDeliveryOptionFromCart(productId, deliveryOptionId) {
     cart.forEach((cartItem) => {
       if (productId === cartItem.productId) {
