@@ -58,21 +58,27 @@ export function loadProductsFetch() {
       return new Product(productDetails)
     });
     console.log('loaded products');
-  });
+  }).catch((error) => {
+    console.log(`There has been some error: ${error}`);
+  })
 
   return promise;
 }
 
 export async function loadProductsAsync() {
-  const response = await fetch('https://supersimplebackend.dev/products');
-  const productsData = await response.json();
+  try {
+    const response = await fetch('https://supersimplebackend.dev/products');
+    const productsData = await response.json();
 
-  products = productsData.map((productDetails) => {
-    if(productDetails.type === 'clothing')
-        return new Clothing(productDetails);
-    
-    return new Product(productDetails)
-  });
+    products = productsData.map((productDetails) => {
+      if(productDetails.type === 'clothing')
+          return new Clothing(productDetails);
+      
+      return new Product(productDetails)
+    });
+  } catch (error) {
+    console.log(`There has been some error: ${error}`);
+  }
 }
 
 export function loadProducts(fun) {
@@ -88,6 +94,10 @@ export function loadProducts(fun) {
     console.log('loaded products');
     fun();
   });
+
+  xhr.addEventListener('error', (error) => {
+    console.log(`There has been some error: ${error}`);
+  })
 
   xhr.open('GET', 'https://supersimplebackend.dev/products')
   xhr.send();

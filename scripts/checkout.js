@@ -4,11 +4,15 @@ import { loadProductsAsync } from '../data/products.js';
 import { loadCartAsync } from '../data/cart.js';
 
 async function loadPage() {
-    await loadProductsAsync();
-    await loadCartAsync();
+    try {
+        await loadProductsAsync();
+        await loadCartAsync();
 
-    renderOrderSummary();
-    renderPaymentSummary();
+        renderOrderSummary();
+        renderPaymentSummary();
+    } catch (error) {
+        console.log(`There has been some error: ${error}`);
+    }
 }
 
 loadPage();
