@@ -63,6 +63,18 @@ export function loadProductsFetch() {
   return promise;
 }
 
+export async function loadProductsAsync() {
+  const response = await fetch('https://supersimplebackend.dev/products');
+  const productsData = await response.json();
+
+  products = productsData.map((productDetails) => {
+    if(productDetails.type === 'clothing')
+        return new Clothing(productDetails);
+    
+    return new Product(productDetails)
+  });
+}
+
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 

@@ -1,7 +1,13 @@
 import { addToCart, getCartQuantity } from '../data/cart.js';
 import { products, loadProductsFetch } from '../data/products.js';
 
-loadProductsFetch().then(renderProductsGrid);
+async function loadPage() {
+  await loadProductsFetch();
+  
+  renderProductsGrid();
+}
+
+loadPage();
 
 function renderProductsGrid() {
 

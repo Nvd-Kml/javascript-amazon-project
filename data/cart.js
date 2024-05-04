@@ -97,6 +97,11 @@ export function loadCartFetch() {
   return promise;
 }
 
+export async function loadCartAsync() {
+  const response = await fetch('https://supersimplebackend.dev/cart');
+  return await response.text();
+}
+
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 
