@@ -1,7 +1,9 @@
 import { addToCart, getCartQuantity } from '../data/cart.js';
-import { products } from '../data/products.js';
+import { products, loadProducts } from '../data/products.js';
 
-function renderProducts() {
+loadProducts(renderProductsGrid);
+
+function renderProductsGrid() {
 
   let productHtml = ``;
 
@@ -95,5 +97,3 @@ function renderProducts() {
     }, 2000);
   }
 }
-
-renderProducts();
